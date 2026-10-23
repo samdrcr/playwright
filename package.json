@@ -1,0 +1,14 @@
+{
+  "name": "hw7-task-board",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test:unit": "python3 -m unittest discover -s tests/unit",
+    "test:system": "python3 -m unittest discover -s tests/system",
+    "test:e2e": "npx playwright test",
+    "test:all": "npm run test:unit && npm run test:system && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}
