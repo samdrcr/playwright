@@ -1,7 +1,7 @@
 # HW7 — Task Board Test Stack
 
-**Student:** Samuel Audric Raphael / 范權榮 (111210557)  
-**Department:** Department of Computer Science and Information Engineering, National Quemoy University
+**Student:** 范權榮 (111210557)  
+**Department:** 國立金門大學 資訊工程學系四年級
 
 ## Project Overview
 
