@@ -13,15 +13,30 @@ async function fetchTasks() {
     const list = document.getElementById('task-list');
     list.innerHTML = '';
     
+    if (tasks.length === 0) {
+        list.innerHTML = '<p style="color: #64748b; text-align: center; margin: 1rem 0;">No tasks yet. Add one above!</p>';
+        return;
+    }
+
     tasks.forEach((task, index) => {
-        const div = document.createElement('div');
-        div.className = `task-card ${task.status === 'completed' ? 'completed' : ''}`;
-        div.textContent = `${task.title} [${task.status || 'pending'}]`;
+        const status = task.status || 'pending';
         
-        // Click to toggle status
-        div.style.cursor = 'pointer';
+        const div = document.createElement('div');
+        div.className = `task-card ${status}`;
+        
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'task-title';
+        titleSpan.textContent = task.title;
+
+        const badge = document.createElement('span');
+        badge.className = 'task-badge';
+        badge.textContent = status;
+
+        div.appendChild(titleSpan);
+        div.appendChild(badge);
+        
         div.addEventListener('click', async () => {
-            task.status = task.status === 'pending' ? 'completed' : 'pending';
+            task.status = status === 'pending' ? 'completed' : 'pending';
             if (isGitHubPages) {
                 localStorage.setItem('hw7_tasks', JSON.stringify(tasks));
                 fetchTasks();
@@ -52,6 +67,12 @@ document.getElementById('submit-btn').addEventListener('click', async () => {
 
     titleInput.value = '';
     fetchTasks();
+});
+
+document.getElementById('title-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.getElementById('submit-btn').click();
+    }
 });
 
 fetchTasks();
