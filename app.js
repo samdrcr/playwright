@@ -13,10 +13,21 @@ async function fetchTasks() {
     const list = document.getElementById('task-list');
     list.innerHTML = '';
     
-    tasks.forEach(task => {
+    tasks.forEach((task, index) => {
         const div = document.createElement('div');
-        div.className = 'task-card';
+        div.className = `task-card ${task.status === 'completed' ? 'completed' : ''}`;
         div.textContent = `${task.title} [${task.status || 'pending'}]`;
+        
+        // Click to toggle status
+        div.style.cursor = 'pointer';
+        div.addEventListener('click', async () => {
+            task.status = task.status === 'pending' ? 'completed' : 'pending';
+            if (isGitHubPages) {
+                localStorage.setItem('hw7_tasks', JSON.stringify(tasks));
+                fetchTasks();
+            }
+        });
+
         list.appendChild(div);
     });
 }
